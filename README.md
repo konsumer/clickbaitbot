@@ -1,4 +1,4 @@
 clickbaitbot
 ============
 
-clickbait twitter-bot
+[clickbait twitter-bot](https://twitter.com/clickbaitbot)
