@@ -1,0 +1,32 @@
+{
+  "name": "clickbaitbot",
+  "version": "0.0.1",
+  "description": "clickbait twitter-bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/konsumer/clickbaitbot.git"
+  },
+  "keywords": [
+    "clickbait",
+    "random",
+    "twitter"
+  ],
+  "author": "David Konsumer <konsumer@jetboystudio.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/konsumer/clickbaitbot/issues"
+  },
+  "homepage": "https://github.com/konsumer/clickbaitbot",
+  "dependencies": {
+    "errorhandler": "^1.2.0",
+    "express": "^4.9.5",
+    "express-handlebars": "^1.1.0",
+    "google-images": "^0.1.0",
+    "randopeep": "^0.2.4",
+    "wikipedia-js": "0.0.6"
+  }
+}
