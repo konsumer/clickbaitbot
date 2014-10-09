@@ -72,19 +72,19 @@ app.get('/a/:verb/:star/:noun/:headline', function(req, res){
   console.log('baited!', info);
 
   getInfo(info.star.val, function(err, infoIn){
-    if (err) return res.send(err);
+    if (err) return res.send(err || "an error occured.");
     info.star.images = infoIn.images;
     info.star.image = randopeep.randomEl(infoIn.images);
     info.star.text = infoIn.text;
 
     getInfo(info.noun.val, function(err, infoIn){
-      if (err) return res.send(err);
+      if (err) return res.send(err || "an error occured.");
       info.noun.images = infoIn.images;
       info.noun.image = randopeep.randomEl(infoIn.images);
       info.noun.text = infoIn.text;
 
       getInfo(info.verb.val, function(err, infoIn){
-        if (err) return res.send(err);
+        if (err) return res.send(err || "an error occured.");
         info.verb.images = infoIn.images;
         info.verb.image = randopeep.randomEl(infoIn.images);
         info.verb.text = infoIn.text;
