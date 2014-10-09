@@ -25,7 +25,7 @@
     "errorhandler": "^1.2.0",
     "express": "^4.9.5",
     "express-handlebars": "^1.1.0",
-    "google-images": "git://github.com/konsumer/google-images",
+    "google-images": "konsumer/node-google-images",
     "randopeep": "^0.2.5",
     "wikipedia-js": "0.0.6"
   }
