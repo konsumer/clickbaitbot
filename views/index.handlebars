@@ -13,6 +13,14 @@
         height: 200px;
         margin-bottom:20px;
       }
+      h1 img {
+        width: 1em;
+        height:1em;
+        margin-top: -10px;
+      }
+      h2 {
+        font-size: 50px;
+      }
     </style>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -22,15 +30,16 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-        <h1>Clickbait Bot</h1>
-        <h2>{{headline}}</h2>
+        <h1><a href="/"><img alt="Click Here!" src="https://pbs.twimg.com/profile_images/519964595436265472/MQpbjjMQ_400x400.png"> Clickbait Bot</a></h1>
       </div>
 
       <div class="row images">
-        <div class="col-xs-4 text-hide" style="background-image: url({{star.image.unescapedUrl}})"> {{star.val}} </div>
-        <div class="col-xs-4 text-hide" style="background-image: url({{verb.image.unescapedUrl}})"> {{verb.val}} </div>
-        <div class="col-xs-4 text-hide" style="background-image: url({{noun.image.unescapedUrl}})"> {{noun.val}} </div>
+        <div class="col-xs-4 text-hide" style="background-image: url({{{star.image.unescapedUrl}}})"> {{star.val}} </div>
+        <div class="col-xs-4 text-hide" style="background-image: url({{{verb.image.unescapedUrl}}})"> {{verb.val}} </div>
+        <div class="col-xs-4 text-hide" style="background-image: url({{{noun.image.unescapedUrl}}})"> {{noun.val}} </div>
       </div>
+
+       <h2>{{headline}}</h2>
 
       {{{star.text}}}
 
@@ -38,5 +47,10 @@
 
       {{{verb.text}}}
     </div>
+
+    <div class="footer">
+      <div class="container"><a href="{{{permalink}}}">permalink</a></div>
+    </div>
+
   </body>
 </html>
