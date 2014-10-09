@@ -16,15 +16,19 @@ app.set('view engine', 'handlebars');
 //get images & text for a thing
 function getInfo(what, cb){
   var info = {};
-  wikipedia.searchArticle({query: what, format: "html", summaryOnly: true}, function(err, htmlWikiText){
-    if (err) return cb(err);
-    info.text = htmlWikiText;
-    images.search(what, function(err, images){
+  try{
+    wikipedia.searchArticle({query: what, format: "html", summaryOnly: true}, function(err, htmlWikiText){
       if (err) return cb(err);
-      info.images = images;
-      return cb(null, info);
+      info.text = htmlWikiText;
+      images.search(what, function(err, images){
+        if (err) return cb(err);
+        info.images = images;
+        return cb(null, info);
+      });
     });
-  });
+  }catch(e){
+    cb(e);
+  }
 }
 
 // reaching in & re-adding these methods
