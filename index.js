@@ -69,8 +69,6 @@ app.get('/a/:verb/:star/:noun/:headline', function(req, res){
     permalink: req.protocol + '://' + req.get('host') + req.originalUrl
   };
 
-  res.render('index', info);
-
   console.log('baited!', info);
 
   getInfo(info.star.val, function(err, infoIn){
