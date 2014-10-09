@@ -13,6 +13,8 @@ var hbs = exphbs.create({ helpers: require('./views/helpers') });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
+var imageCache = {};
+
 //get images & text for a thing
 function getInfo(what, cb){
   var info = {};
@@ -20,9 +22,16 @@ function getInfo(what, cb){
     wikipedia.searchArticle({query: what, format: "html", summaryOnly: true}, function(err, htmlWikiText){
       if (err) return cb(err);
       info.text = htmlWikiText;
+      
+      if (imageCache[what]) {
+        info.images = imageCache[what];
+        return cb(null, info);
+      }
+
       images.search(what, function(err, images){
         if (err) return cb(err);
         info.images = images;
+        imageCache[what] = images;
         return cb(null, info);
       });
     });
