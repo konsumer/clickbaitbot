@@ -1,5 +1,42 @@
-<h1>{{headline}}</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{headline}}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style>
+      .images div{
+        background-size: cover;
+        height: 200px;
+        margin-bottom:20px;
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Clickbait Bot</h1>
+        <h2>{{headline}}</h2>
+      </div>
 
-<img src="{{images.0.unescapedUrl}}" alt="{{star}}"/>
+      <div class="row images">
+        <div class="col-xs-4 text-hide" style="background-image: url({{star.image.unescapedUrl}})"> {{star.val}} </div>
+        <div class="col-xs-4 text-hide" style="background-image: url({{verb.image.unescapedUrl}})"> {{verb.val}} </div>
+        <div class="col-xs-4 text-hide" style="background-image: url({{noun.image.unescapedUrl}})"> {{noun.val}} </div>
+      </div>
 
-{{{text}}}
+      {{{star.text}}}
+
+      {{{noun.text}}}
+
+      {{{verb.text}}}
+    </div>
+  </body>
+</html>

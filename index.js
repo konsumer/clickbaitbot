@@ -13,23 +13,64 @@ var hbs = exphbs.create({ helpers: require('./views/helpers') });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// /Chris%20Hadfield/Is%20Chris%20Hadfield%20doing%20body%20shots%20with%20Macaulay%20Culkin%3F
-app.get('/:star/:headline', function(req, res){
-  var info = {
-    star : req.param('star'),
-    headline: req.param('headline')
-  };
-
-  wikipedia.searchArticle({query: info.star, format: "html", summaryOnly: true}, function(err, htmlWikiText){
-    if (err) return res.send(500, err);
+//get images & text for a thing
+function getInfo(what, cb){
+  var info = {};
+  wikipedia.searchArticle({query: what, format: "html", summaryOnly: true}, function(err, htmlWikiText){
+    if (err) return cb(err);
     info.text = htmlWikiText;
-    images.search(info.star, function(err, images){
-      if (err) return res.send(500, err);
+    images.search(what, function(err, images){
+      if (err) return cb(err);
       info.images = images;
-      res.render('index', info);
+      return cb(null, info);
     });
   });
-  
+}
+
+// reaching in & re-adding these methods
+randopeep.int = function(max){
+    max = max || 10;
+    return Math.floor(Math.random() * max);
+};
+
+randopeep.randomEl =  function (array) {
+    return array[randopeep.int(array.length)];
+};
+
+// /a/Chris%20Hadfield/Macaulay%20Culkin/doing%20body%20shots%20with/Is%20Chris%20Hadfield%20doing%20body%20shots%20with%20Macaulay%20Culkin%3F
+app.get('/a/:star/:noun/:verb/:headline', function(req, res){
+  var info = {
+    headline: req.param('headline'),
+    star : {val: req.param('star')},
+    noun: {val: req.param('noun')},
+    verb: {val: req.param('verb')}
+  };
+
+  console.log('baited!', info);
+
+  getInfo(info.star.val, function(err, infoIn){
+    if (err) return res.send(500, err);
+    info.star.images = infoIn.images;
+    info.star.image = randopeep.randomEl(infoIn.images);
+    info.star.text = infoIn.text;
+
+    getInfo(info.noun.val, function(err, infoIn){
+      if (err) return res.send(500, err);
+      info.noun.images = infoIn.images;
+      info.noun.image = randopeep.randomEl(infoIn.images);
+      info.noun.text = infoIn.text;
+
+      getInfo(info.verb.val, function(err, infoIn){
+        if (err) return res.send(500, err);
+        info.verb.images = infoIn.images;
+        info.verb.image = randopeep.randomEl(infoIn.images);
+        info.verb.text = infoIn.text;
+
+        res.render('index', info);
+      });
+    });
+  });
+
 });
 
 console.log('server listening at http://localhost:' + port);
