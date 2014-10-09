@@ -13,31 +13,35 @@ var hbs = exphbs.create({ helpers: require('./views/helpers') });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-var imageCache = {};
+var imageCache = {}, infoCache = {};
 
 //get images & text for a thing
 function getInfo(what, cb){
   var info = {};
-  try{
-    wikipedia.searchArticle({query: what, format: "html", summaryOnly: true}, function(err, htmlWikiText){
-      if (err) return cb(err);
-      info.text = htmlWikiText;
-      
-      if (imageCache[what]) {
-        info.images = imageCache[what];
-        return cb(null, info);
-      }
+  
+  var innercb = function(err, htmlWikiText){
+    if (err) return cb(err);
+    info.text = htmlWikiText;
+    infoCache[what] = htmlWikiText;
+    
+    if (imageCache[what]) {
+      info.images = imageCache[what];
+      return cb(null, info);
+    }
 
-      images.search(what, function(err, images){
-        if (err) return cb(err);
-        info.images = images;
-        imageCache[what] = images;
-        return cb(null, info);
-      });
+    images.search(what, function(err, images){
+      if (err) return cb(err);
+      info.images = images;
+      imageCache[what] = images;
+      return cb(null, info);
     });
-  }catch(e){
-    cb(e);
   }
+
+  if (infoCache[what]){
+    innercb(null, infoCache[what]);
+  }
+
+  wikipedia.searchArticle({query: what, format: "html", summaryOnly: true}, innercb);
 }
 
 // reaching in & re-adding these methods
