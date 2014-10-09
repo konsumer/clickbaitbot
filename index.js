@@ -37,13 +37,19 @@ randopeep.randomEl =  function (array) {
     return array[randopeep.int(array.length)];
 };
 
-// /a/Chris%20Hadfield/Macaulay%20Culkin/doing%20body%20shots%20with/Is%20Chris%20Hadfield%20doing%20body%20shots%20with%20Macaulay%20Culkin%3F
-app.get('/a/:star/:noun/:verb/:headline', function(req, res){
+app.get('/', function(req, res){
+  var cb = randopeep.clickbait.headline(null, null, true);
+  res.redirect(req.protocol + '://' + req.get('host') + '/a/' + [cb.verb, cb.star, cb.noun, cb.headline].map(encodeURIComponent).join('/'));
+});
+
+// /a/doing%20body%20shots%20with/Chris%20Hadfield/Macaulay%20Culkin/Is%20Chris%20Hadfield%20doing%20body%20shots%20with%20Macaulay%20Culkin%3F
+app.get('/a/:verb/:star/:noun/:headline', function(req, res){
   var info = {
     headline: req.param('headline'),
     star : {val: req.param('star')},
     noun: {val: req.param('noun')},
-    verb: {val: req.param('verb')}
+    verb: {val: req.param('verb')},
+    permalink: req.protocol + '://' + req.get('host') + req.originalUrl
   };
 
   console.log('baited!', info);
