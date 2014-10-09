@@ -22,7 +22,7 @@ function getInfo(what, cb){
   var innercb = function(err, htmlWikiText){
     if (err) return cb(err);
     info.text = htmlWikiText;
-    infoCache[what] = htmlWikiText;
+    //infoCache[what] = htmlWikiText;
     
     if (imageCache[what]) {
       info.images = imageCache[what];
@@ -32,7 +32,7 @@ function getInfo(what, cb){
     images.search(what, function(err, images){
       if (err) return cb(err);
       info.images = images;
-      imageCache[what] = images;
+      //imageCache[what] = images;
       return cb(null, info);
     });
   }
