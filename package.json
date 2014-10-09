@@ -27,6 +27,7 @@
     "express-handlebars": "^1.1.0",
     "google-images": "konsumer/node-google-images",
     "randopeep": "^0.2.5",
+    "twit": "^1.1.18",
     "wikipedia-js": "0.0.6"
   }
 }
